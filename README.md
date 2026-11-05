@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project simulates a small enterprise network deployed inside a controlled virtual lab environment.  
+This project simulates a very **simple** small enterprise network deployed inside a controlled virtual lab environment.  
 The objective is to build, validate, and secure the network infrastructure while responding to operational security tasks as if acting as an external security analyst.
 
 The environment is intentionally resource-intensive and designed to mimic real-world enterprise troubleshooting, validation, and defensive security workflows.
