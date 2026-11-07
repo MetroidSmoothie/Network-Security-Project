@@ -6,7 +6,7 @@ A virtualized network security lab built with Oracle VirtualBox, pfSense, Surica
 
 ## Network Topology
 
-![Network Security Lab Topology](images/network-topology.png)
+![Network Security Lab Topology](images/simple-topology.png)
 
 The environment consists of four virtual machines:
 
