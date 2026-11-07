@@ -6,6 +6,8 @@ _**Project Status:** Enhancements in progress. The existing virtual network envi
 
 A virtualized network security lab built with Oracle VirtualBox, pfSense, Suricata, and Linux systems. The environment simulates a small enterprise network for practicing firewall administration, network traffic analysis, intrusion detection, incident investigation, and security control validation.
 
+**The goal of this project is to provide aspiring and entry-level cybersecurity professionals with an accessible, reproducible lab environment and structured security assessments they can complete to develop practical, hands-on skills.**
+
 ## Network Topology
 
 ![Network Security Lab Topology](images/simple-topology.png)
