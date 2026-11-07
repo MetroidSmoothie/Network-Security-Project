@@ -1,5 +1,7 @@
 # Network Security Lab
 
+_**Project Status:** Enhancements in progress. The existing virtual network environment is being expanded with additional firewall security assessments, incident investigation scenarios, Suricata detection engineering, and security control validation._
+
 ## Overview
 
 A virtualized network security lab built with Oracle VirtualBox, pfSense, Suricata, and Linux systems. The environment simulates a small enterprise network for practicing firewall administration, network traffic analysis, intrusion detection, incident investigation, and security control validation.
