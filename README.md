@@ -31,6 +31,6 @@ The lab includes simulated security tasks covering:
 ## Documentation
 
 - [Lab Environment Setup](Lab%20Environment%20Setup.md) — Virtual machine configuration and network setup
-- [Project Tasks](Project%20Tasks.md) — Initial firewall, NAT, and intrusion detection exercises
+- [Project Tasks - In progress]
 
 Additional investigation, detection engineering, and validation documentation will be added as the lab develops.
