@@ -34,7 +34,7 @@ The lab includes simulated security tasks covering:
 
 ## Documentation
 
-- [Lab Environment Setup](Lab%20Environment%20Setup.md) — Virtual machine configuration and network setup
+- [Lab Environment Setup - Currently being updated]
 - [Project Tasks - In progress]
 
 Additional investigation, detection engineering, and validation documentation will be added as the lab develops.
