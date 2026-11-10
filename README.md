@@ -1,6 +1,7 @@
 # Network Security Project
 
 _**Project Status:** Core environment configured. Exercise enhancements in progress._
+*Preconfigured `.ova` files are available upon request. However, beginners are encouraged to follow the [Lab Environment Setup](Lab%20Environment%20Setup.md) guide and configure the environment themselves to gain experience with virtualization, networking, system administration and troubleshooting.*
 
 ## Overview
 
