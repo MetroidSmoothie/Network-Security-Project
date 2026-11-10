@@ -1,6 +1,6 @@
 # Network Security Project
 
-_**Project Status:** Core lab configured. Enhancements in progress._
+_**Project Status:** Core environment configured. Exercise enhancements in progress._
 
 ## Overview
 
