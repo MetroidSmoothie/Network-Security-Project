@@ -51,13 +51,6 @@ The following exercises are **planned** and will be linked as their documentatio
 
 See [Lab Environment Setup](Lab%20Environment%20Setup.md) for VM configuration, VirtualBox networking, pfSense settings, and connectivity validation. The original VM images are not distributed in this repository; use appropriately licensed appliances or build equivalent VMs following the documented architecture.
 
-## Related Projects
-
-*Placeholder for future standalone repositories. Replace these entries with actual GitHub links when those repositories are published.*
-
-- **Enterprise WAN Design & VLAN Segmentation** — *Repository link coming soon*
-- **Enterprise Active Directory Security Lab** — *Repository link coming soon*
-
 ## Security Considerations
 
 **For isolated educational use only.** This lab includes legacy imported software, including pfSense CE 2.6.0 and its end-of-life PHP 7.4 runtime. Do not attach the VMs to a production, home, or public network, and do not expose management interfaces to the internet. Use unique credentials, review imported appliances, and never publish passwords, private keys, or sensitive configuration exports. Isolation reduces exposure but does not eliminate all risk.
