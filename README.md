@@ -4,11 +4,7 @@ _**Project Status:** Core environment configured. Exercise enhancements in progr
 
 ## Overview
 
-A hands-on cybersecurity lab built in Oracle VirtualBox using pfSense, Kali Linux, Ubuntu, and Debian. The environment simulates an external testing host and a protected internal network separated by a stateful firewall. It is designed for learners to practice network security engineering, traffic analysis, detection, system hardening, and incident investigation through repeatable exercises.
-
-Each exercise will include configuration steps, positive and negative tests, observed results, and supporting evidence—not just screenshots of completed settings.
-
-**The goal of this project is to provide aspiring and entry-level cybersecurity professionals with an accessible, reproducible lab environment and structured security assessments they can complete to develop practical, hands-on skills.**
+A hands-on cybersecurity lab designed to provide aspiring and entry-level professionals with an accessible, reproducible environment for developing practical security skills. Built in Oracle VirtualBox using pfSense, Kali Linux, Ubuntu, and Debian, the project features structured exercises covering network security engineering, traffic analysis, threat detection, system hardening, and incident investigation.
 
 ## Network Topology
 
