@@ -58,10 +58,15 @@ Configure each virtual machine's network adapters under
 ![pfSense console interface assignments](images/lab-setup/pfsense-console-interface-overview.png)
 
 7. From Ubuntu, browse to `https://172.16.77.1`. A self-signed certificate warning is expected. Use the appliance's authorized administrator credentials; pfSense factory defaults, if unchanged, are `admin` / `pfsense`. **Change default credentials** and do not publish the replacement password.
+8. Enable the DHCP server on the LAN interface.
+5. Configure an IPv4 address pool within the `172.16.77.0/24` subnet, excluding the pfSense LAN address (`172.16.77.1`).
+6. Click **Save** to apply the configuration.
 
-> **Screenshot to capture — `pfsense-lan-dhcp-settings.png`:** Capture **Services → DHCP Server → LAN**, showing DHCP enabled and the configured address pool. Avoid showing credentials or unrelated settings. Add it here when captured: `![pfSense LAN DHCP settings](images/lab-setup/pfsense-lan-dhcp-settings.png)`.
+![pfSense LAN DHCP settings](images/lab-setup/pfsense-lan-dhcp-settings.png)
 
-Under **Interfaces → WAN**, verify **Block private networks and loopback addresses** is unchecked for this simulated RFC1918 external subnet. It was already unchecked in the configured lab. Also verify the bogon-network block setting is appropriate for this isolated test network; it was unchecked in the recorded configuration. The default WAN deny policy should remain in place. Under **System → General Setup**, set timezone to **`US/Eastern`** if New York local time is desired.
+> **Troubleshooting:** If Ubuntu or Debian does not receive an IPv4 address, verify that DHCP is enabled, the address pool is within `172.16.77.0/24`, and both VMs are connected to the `PFSense Network` Internal Network in VirtualBox.
+
+Under **Interfaces → WAN**, verify **Block private networks and loopback addresses** is unchecked for this simulated RFC1918 external subnet. Also verify the bogon-network block setting is appropriate for this isolated test network. The default WAN deny policy should remain in place. Under **System → General Setup**, set timezone to **`US/Eastern`** if New York local time is desired.
 
 > **Troubleshooting — browser certificate warning:** The pfSense webConfigurator may present an untrusted/self-signed HTTPS certificate. Verify that you are visiting `https://172.16.77.1` on the isolated LAN before proceeding through the browser warning. Do not disable certificate checking system-wide.
 
