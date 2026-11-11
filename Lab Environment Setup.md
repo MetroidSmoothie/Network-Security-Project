@@ -172,8 +172,6 @@ By default, pfSense denies unsolicited WAN traffic. To verify that Kali can reac
 
 *The WAN rule permits ICMP echo requests from Kali (`192.168.50.10`) to the pfSense WAN address only.*
 
-> **SCREENSHOT REFRESH RECOMMENDED:** The original image shows a warning that the pfSense administrator password is still set to its default. Change the password and recapture the rule page before publishing if that warning remains visible.
-
 This rule permits a limited diagnostic test; it does **not** grant access to the protected LAN.
 
 > **Troubleshooting — Kali cannot ping pfSense WAN:** First verify Kali has `192.168.50.10/24`, pfSense WAN has `192.168.50.1/24`, and both adapters use `Lab-External`. Then confirm the WAN rule is enabled, targets **WAN address**, has source `192.168.50.10`, and has been applied. Check firewall logs rather than adding a broad allow rule.
@@ -220,48 +218,24 @@ In pfSense, open **Status → System Logs → Firewall → Normal View**, select
 
 *pfSense firewall logs identify the WAN interface, default deny rule, Kali source (`192.168.50.10`), Ubuntu destination (`172.16.77.10`), and ICMP protocol.*
 
-> **Optional screenshot — `pfsense-firewall-log-context.png`:** Capture a wider view of **Status → System Logs → Firewall → Normal View** showing the relevant filter and column headings, if the cropped log above is difficult for beginners to interpret.
+## Baseline Completion Checklist
 
-## 9. Baseline completion checklist
+Before proceeding to the security exercises, verify the following:
 
-- [x] All four appliances imported and booted.
-- [x] WAN and LAN mapped to distinct VirtualBox Internal Networks.
-- [x] pfSense WAN and LAN static IPv4 addresses verified.
-- [x] Ubuntu and Debian received DHCP addresses and reached pfSense LAN.
-- [x] Kali static IPv4 configuration persisted after reboot.
-- [x] Kali's protected-LAN route saved in NetworkManager.
-- [ ] Verify the saved route after a reboot and capture evidence.
-- [x] Narrow Kali-to-pfSense WAN ICMP test passed.
-- [x] Kali-to-Ubuntu ICMP denied and verified in pfSense firewall logs.
-- [x] pfSense timezone set to `US/Eastern`.
-- [ ] Optional: reserve Ubuntu/Debian DHCP leases for consistent future exercise IPs.
-- [ ] Capture final VirtualBox adapter settings for all four VMs.
-- [ ] Capture pfSense DHCP settings and confirm whether leases are reserved.
-- [ ] Replace the pfSense rule screenshot after changing any default administrator password.
+- [ ] All four virtual machines are imported and boot successfully.
+- [ ] All network adapters use VirtualBox Internal Network mode.
+- [ ] pfSense WAN (`192.168.50.1/24`) and LAN (`172.16.77.1/24`) interfaces are configured correctly.
+- [ ] The pfSense LAN DHCP server is enabled.
+- [ ] Ubuntu and Debian receive IPv4 addresses from pfSense DHCP.
+- [ ] Ubuntu and Debian can successfully ping the pfSense LAN interface.
+- [ ] Kali has the static IPv4 address `192.168.50.10/24`.
+- [ ] Kali's static IP and route to `172.16.77.0/24` persist after reboot.
+- [ ] Kali can successfully ping the pfSense WAN interface.
+- [ ] Kali cannot reach Ubuntu or Debian through the default WAN firewall policy.
+- [ ] pfSense firewall logs confirm that Kali's WAN-to-LAN traffic is blocked.
+- [ ] All virtual machines remain isolated from the internet and physical network.
+
 
 ## 10. Before starting the security exercises
 
 Take a VM snapshot or export a sanitized pfSense configuration as a rollback point. Keep test traffic within the authorized isolated networks. Do not publish OVA images, passwords, private keys, or unsanitized firewall configuration backups. Additional software (Suricata, OpenVPN, Fail2ban, web servers, syslog tooling) must be verified as installed before its corresponding exercise begins.
-
-## Screenshot inventory and publication checklist
-
-**Screenshots referenced in this guide (filenames already standardized):**
-
-| Screenshot filename | Location in guide | Status |
-| --- | --- | --- |
-| `pfsense-console-interface-overview.png` | pfSense console interface setup | Confirm earlier screenshot matches final interfaces |
-| `ubuntu-lan-connectivity.png` | Ubuntu DHCP and ping verification | Available |
-| `debian-lan-connectivity.png` | Debian DHCP and ping verification | Available |
-| `kali-static-ip-networkmanager.png` | Kali persistent static IP | Available |
-| `pfsense-wan-icmp-rule.png` | Narrow WAN test rule | Available; refresh to remove default-password warning |
-| `kali-pfsense-icmp-success.png` | Allowed WAN ping test | Available |
-| `kali-wan-to-lan-blocked.png` | Routed but blocked Kali-to-LAN test | Available |
-| `pfsense-wan-to-lan-blocked-icmp.png` | pfSense default-deny logs | Available |
-
-All images referenced by Markdown belong under `images/lab-setup/`. The optional and pending images below are **not embedded yet**, so the page will not display broken image links.
-
-**Do not include in the main walkthrough:** `Kali IP and ping connectivity (1) unsuccesful.png` (intermediate failure), `kali neighbor show command .png` (optional troubleshooting), old NAT/bridged adapter screenshots, GRUB/password-recovery screenshots, or duplicate firewall log crops. Keep these privately for troubleshooting if desired.
-
-**New screenshots to capture:** `virtualbox-final-adapters-pfsense.png`, `virtualbox-final-adapters-endpoints.png`, `pfsense-lan-dhcp-settings.png`, `kali-persistent-route-after-reboot.png`; optionally `pfsense-firewall-log-context.png`. Once captured and uploaded, replace the corresponding **Screenshot to capture** notes with Markdown image links. Replace `pfsense-wan-icmp-rule.png` with a fresh capture after correcting the default-password warning.
-
-Do not upload screenshots containing credentials, session tokens, sensitive host information, or unnecessary browser details. Before committing, verify that every referenced file exists at the exact case-sensitive path shown above.
