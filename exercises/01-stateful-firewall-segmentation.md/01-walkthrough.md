@@ -496,15 +496,84 @@ The SSH connection timed out, consistent with the intended firewall restriction.
 | Persistent return route | Verified after reboot | Pass |
 | Firewall baseline restoration | HTTP connection timed out | Pass |
 
+
 ## Cleanup & Reset
 
-The following conditions were verified at the conclusion of the exercise:
+After completing the exercise, restore the original firewall restrictions while preserving the network configuration required for subsequent exercises.
 
-- The temporary HTTP allow rule was removed.
-- The original WAN ICMP rule was preserved.
-- Kali-to-Ubuntu HTTP connectivity was blocked again.
-- Ubuntu's persistent route to `192.168.50.0/24` was retained.
-- The pfSense pre-exercise snapshot remained available for rollback.
+### 1. Remove the Temporary Firewall Rule
 
-**Final state:** The original firewall access restrictions were restored, and the lab remained ready for subsequent exercises.
+In pfSense:
+
+1. Navigate to **Firewall → Rules → WAN**.
+2. Locate the rule named `EX01 - Allow Kali HTTP to Ubuntu`.
+3. Click the trash icon to delete the rule.
+4. Click **Apply Changes**.
+5. Confirm the rule is no longer present.
+6. Verify the original `Allow Kali ICMP to pfSense WAN` rule remains enabled.
+
+### 2. Clear Remaining HTTP Connection States
+
+In pfSense:
+
+1. Navigate to **Diagnostics → States**.
+2. Enter `192.168.50.10` in the filter expression.
+3. Click **Filter**.
+4. Identify any remaining TCP connections between `192.168.50.10` and `172.16.77.10:80`.
+5. Delete only those specific connection states, if present.
+
+**Note:** Do not use **Reset States** to clear the entire state table. Existing connections unrelated to this exercise should remain unaffected.
+
+### 3. Verify Firewall Restrictions
+
+On Kali, run:
+
+```bash
+wget --spider -S -T 5 -t 1 http://172.16.77.10
+```
+
+**Expected result:** Connection timed out.
+
+Optionally, verify that ICMP and SSH remain blocked:
+
+```bash
+ping -c 4 172.16.77.10
+nc -zv -w 5 172.16.77.10 22
+```
+
+**Expected results:**
+
+- HTTP (TCP 80): Connection timed out.
+- ICMP: 100% packet loss.
+- SSH (TCP 22): Connection timed out.
+
+### 4. Verify the Ubuntu Return Route
+
+The persistent route configured during troubleshooting should remain in place for subsequent exercises.
+
+On Ubuntu, run:
+
+```bash
+ip route get 192.168.50.10
+```
+
+**Expected result:** Traffic to `192.168.50.10` routes through `172.16.77.1`.
+
+Do not remove this route during cleanup.
+
+### 5. Confirm the Final Lab Configuration
+
+| Component | Required Final State |
+|---|---|
+| pfSense WAN | Temporary HTTP allow rule removed |
+| pfSense ICMP Rule | Original rule preserved |
+| pfSense State Table | No remaining exercise-specific HTTP states |
+| Kali → Ubuntu HTTP | Blocked |
+| Kali → Ubuntu SSH | Blocked |
+| Kali → Ubuntu ICMP | Blocked |
+| Ubuntu Return Route | Persistent route retained |
+| VirtualBox | All four VMs remain available for subsequent exercises |
+
+**Final state:** The original firewall access restrictions are restored, temporary exercise-specific connections are cleared, and the lab is ready for Exercise 2.
+
 
