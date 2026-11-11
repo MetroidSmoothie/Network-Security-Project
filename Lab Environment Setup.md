@@ -57,9 +57,7 @@ Configure each virtual machine's network adapters under
 
 ![pfSense console interface assignments](images/lab-setup/pfsense-console-interface-overview.png)
 
-*pfSense console displaying the configured WAN and LAN interfaces. Use this image only if the visible IPs and interface names match the final setup.*
-
-From Ubuntu, browse to `https://172.16.77.1`. A self-signed certificate warning is expected. Use the appliance's authorized administrator credentials; pfSense factory defaults, if unchanged, are `admin` / `pfsense`. **Change default credentials** and do not publish the replacement password.
+7. From Ubuntu, browse to `https://172.16.77.1`. A self-signed certificate warning is expected. Use the appliance's authorized administrator credentials; pfSense factory defaults, if unchanged, are `admin` / `pfsense`. **Change default credentials** and do not publish the replacement password.
 
 > **Screenshot to capture — `pfsense-lan-dhcp-settings.png`:** Capture **Services → DHCP Server → LAN**, showing DHCP enabled and the configured address pool. Avoid showing credentials or unrelated settings. Add it here when captured: `![pfSense LAN DHCP settings](images/lab-setup/pfsense-lan-dhcp-settings.png)`.
 
