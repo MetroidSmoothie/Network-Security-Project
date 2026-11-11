@@ -46,7 +46,7 @@ Configure each virtual machine's network adapters under
 
 > **Troubleshooting:** VirtualBox Internal Network names must match exactly for VMs to communicate on the same segment. Verify that each adapter is enabled and **Cable Connected** is checked. Do not use NAT or Bridged Adapter, as the lab is intended to remain isolated from external networks.
 
-## 4. Configure pfSense
+## 3. Configure pfSense
 
 1. Start pfSense and identify the console interfaces: WAN `em0`, LAN `em1`.
 2. From the console, choose **2) Set interface(s) IP address**.
@@ -58,9 +58,11 @@ Configure each virtual machine's network adapters under
 ![pfSense console interface assignments](images/lab-setup/pfsense-console-interface-overview.png)
 
 7. From Ubuntu, browse to `https://172.16.77.1`. A self-signed certificate warning is expected. Use the appliance's authorized administrator credentials; pfSense factory defaults, if unchanged, are `admin` / `pfsense`. **Change default credentials** and do not publish the replacement password.
-8. Enable the DHCP server on the LAN interface.
-5. Configure an IPv4 address pool within the `172.16.77.0/24` subnet, excluding the pfSense LAN address (`172.16.77.1`).
-6. Click **Save** to apply the configuration.
+> **Note:** Ubuntu must be running with its network adapter connected to `PFSense Network` and have received an IPv4 address from pfSense before accessing the webConfigurator.
+8. Navigate to **Services → DHCP Server → LAN**.
+9. Enable the DHCP server on the LAN interface.
+10. Configure an IPv4 address pool within the `172.16.77.0/24` subnet, excluding the pfSense LAN address (`172.16.77.1`).
+11. Click **Save** to apply the configuration.
 
 ![pfSense LAN DHCP settings](images/lab-setup/pfsense-lan-dhcp-settings.png)
 
@@ -72,7 +74,7 @@ Under **Interfaces → WAN**, verify **Block private networks and loopback addre
 
 > **Troubleshooting — DHCP clients have no address:** Check **Services → DHCP Server → LAN**, the LAN interface address, and each guest’s VirtualBox network name. A host receiving an address outside `172.16.77.0/24` is not in the expected baseline.
 
-## 5. Configure Ubuntu and Debian
+## 4. Configure Ubuntu and Debian
 
 1. Boot each VM with its only active NIC attached to `PFSense Network`.
 2. Log in using authorized credentials. If credentials are unknown, recover them using the guest's documented recovery mechanism rather than guessing or publishing passwords.
@@ -101,7 +103,7 @@ During the documented deployment, Ubuntu received `172.16.77.10` and Debian rece
 
 *Debian received `172.16.77.11/24` via DHCP and successfully reached pfSense LAN.*
 
-## 6. Configure Kali's persistent IPv4 address
+## 5. Configure Kali's persistent IPv4 address
 
 1. Boot Kali with its NIC on `Lab-External` and identify its interface:
 
@@ -157,7 +159,7 @@ During the documented deployment, Ubuntu received `172.16.77.10` and Debian rece
 
 > **Troubleshooting — `Network is unreachable`:** Run `ip route`. Kali needs `172.16.77.0/24 via 192.168.50.1 dev eth0` to reach the protected subnet. If absent, check the saved `ipv4.routes` property with `nmcli -f ipv4.routes connection show "eth0"`, then reactivate the correct connection. This is a routing problem, not evidence that pfSense blocked the packet.
 
-## 7. Configure a narrow pfSense WAN test rule
+## 6. Configure a narrow pfSense WAN test rule
 
 By default, pfSense denies unsolicited WAN traffic. To verify that Kali can reach the **firewall itself** without permitting general WAN-to-LAN access:
 
@@ -176,7 +178,7 @@ This rule permits a limited diagnostic test; it does **not** grant access to the
 
 > **Troubleshooting — Kali cannot ping pfSense WAN:** First verify Kali has `192.168.50.10/24`, pfSense WAN has `192.168.50.1/24`, and both adapters use `Lab-External`. Then confirm the WAN rule is enabled, targets **WAN address**, has source `192.168.50.10`, and has been applied. Check firewall logs rather than adding a broad allow rule.
 
-## 8. Validate isolation and firewall enforcement
+## 7. Validate isolation and firewall enforcement
 
 From Kali:
 
@@ -218,7 +220,7 @@ In pfSense, open **Status → System Logs → Firewall → Normal View**, select
 
 *pfSense firewall logs identify the WAN interface, default deny rule, Kali source (`192.168.50.10`), Ubuntu destination (`172.16.77.10`), and ICMP protocol.*
 
-## Baseline Completion Checklist
+## 8. Baseline Completion Checklist
 
 Before proceeding to the security exercises, verify the following:
 
@@ -236,6 +238,6 @@ Before proceeding to the security exercises, verify the following:
 - [ ] All virtual machines remain isolated from the internet and physical network.
 
 
-## 10. Before starting the security exercises
+## 9. Before starting the security exercises
 
 Take a VM snapshot or export a sanitized pfSense configuration as a rollback point. Keep test traffic within the authorized isolated networks. Do not publish OVA images, passwords, private keys, or unsanitized firewall configuration backups. Additional software (Suricata, OpenVPN, Fail2ban, web servers, syslog tooling) must be verified as installed before its corresponding exercise begins.
