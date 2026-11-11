@@ -157,8 +157,6 @@ During the documented deployment, Ubuntu received `172.16.77.10` and Debian rece
 
 > **Troubleshooting — `Network is unreachable`:** Run `ip route`. Kali needs `172.16.77.0/24 via 192.168.50.1 dev eth0` to reach the protected subnet. If absent, check the saved `ipv4.routes` property with `nmcli -f ipv4.routes connection show "eth0"`, then reactivate the correct connection. This is a routing problem, not evidence that pfSense blocked the packet.
 
-**Account note:** The imported legacy Kali image had only an interactive `root` account. If access recovery is needed, the authorized administrator can use the guest's GRUB recovery workflow to reset its password. Avoid using root for routine work where a nonprivileged account is practical; never publish passwords.
-
 ## 7. Configure a narrow pfSense WAN test rule
 
 By default, pfSense denies unsolicited WAN traffic. To verify that Kali can reach the **firewall itself** without permitting general WAN-to-LAN access:
