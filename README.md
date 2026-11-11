@@ -6,7 +6,7 @@
 
 A hands-on cybersecurity lab designed to provide aspiring and entry-level professionals with an accessible, reproducible environment for developing practical security skills. Built in Oracle VirtualBox using pfSense, Kali Linux, Ubuntu, and Debian. The project features structured exercises covering network security engineering, traffic analysis, threat detection, system hardening, and incident investigation.
 
-*Preconfigured .ova files are available upon request. However, I would argue that troubleshooting the configuration is just as valuable as completing the tasks, so beginners are encouraged to follow the [Lab Environment Setup](Lab%20Environment%20Setup.md) guide and configure the environment themselves to gain experience with virtualization, networking, system administration and troubleshooting.*
+**Preconfigured .ova files are available upon request. However, I would argue that troubleshooting the configuration is just as valuable as completing the tasks**, so beginners are encouraged to follow the [Lab Environment Setup](Lab%20Environment%20Setup.md) guide and configure the environment themselves to gain experience with virtualization, networking, system administration and troubleshooting.
 
 ## Network Topology
 
