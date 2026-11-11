@@ -88,7 +88,8 @@ Participants will complete the following tasks:
 
 Successful completion requires demonstrating that:
 
-- The selected Ubuntu service is reachable when the appropriate firewall exception and network routing are configured.- Traffic outside the permitted source, destination, protocol, and port remains restricted.
+- The selected Ubuntu service is reachable when the appropriate firewall exception and network routing are configured.
+- Traffic outside the permitted source, destination, protocol, and port remains restricted.
 - pfSense maintains connection states for authorized traffic.
 - Firewall logs provide evidence of policy enforcement.
 - The original WAN-to-LAN restrictions are restored after testing.
