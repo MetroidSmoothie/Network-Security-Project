@@ -30,8 +30,6 @@ sudo ss -lntp
 
 Apache was selected as the authorized service. SSH was retained as an additional service for testing unauthorized connections.
 
-**Screenshot 01 — Ubuntu Listening TCP Services**
-
 ![Ubuntu Listening TCP Services](../../images/01-stateful-firewall-segmentation/ubuntu-listening-tcp-services.png)
 
 ### 1.2 Verify Ubuntu's IPv4 Address
@@ -66,8 +64,6 @@ wget --spider -S http://127.0.0.1
 **Observed result:** `HTTP/1.1 200 OK`
 
 This confirms Apache is running and responding to local HTTP requests.
-
-**Screenshot 02 — Apache HTTP Verification**
 
 ![Apache HTTP Verification](../../images/01-stateful-firewall-segmentation/ubuntu-apache-http-verification.png)
 
@@ -104,8 +100,6 @@ ping -c 4 172.16.77.10
 
 **Observed result:** Four packets transmitted, zero received (100% packet loss).
 
-**Screenshot 03 — Baseline Connectivity Blocked**
-
 ![Baseline Connectivity Blocked](../../images/01-stateful-firewall-segmentation/kali-ubuntu-baseline-blocked.png)
 
 ### 2.3 Verify Denied Traffic in pfSense
@@ -117,8 +111,6 @@ In pfSense:
 3. Identify denied HTTP and ICMP traffic destined for `172.16.77.10`.
 
 **Observed result:** The default IPv4 WAN deny rule (`1000000103`) blocked the connection attempts.
-
-**Screenshot 04 — pfSense Baseline WAN Deny Logs**
 
 ![pfSense Baseline WAN Deny Logs](../../images/01-stateful-firewall-segmentation/pfsense-baseline-wan-blocked.png)
 
@@ -158,8 +150,6 @@ In pfSense:
 6. Verify the new rule appears above the existing ICMP rule.
 
 The firewall now permits Kali to initiate TCP 80 connections to Ubuntu without granting access to other internal services.
-
-**Screenshot 05 — pfSense WAN HTTP Allow Rule**
 
 ![pfSense WAN HTTP Allow Rule](../../images/01-stateful-firewall-segmentation/pfsense-wan-http-allow-rule.png)
 
@@ -213,8 +203,6 @@ ping -c 4 172.16.77.10
 
 **Observed result:** Four packets transmitted, zero received.
 
-**Screenshot 07 — Unauthorized Traffic Blocked**
-
 ![Unauthorized Traffic Blocked](../../images/01-stateful-firewall-segmentation/kali-unauthorized-traffic-blocked.png)
 
 ### 4.4 Confirm the Access Restrictions
@@ -261,8 +249,6 @@ The bidirectional packet counters demonstrate that pfSense tracked both directio
 
 The `FIN_WAIT_2` state indicates that the connection was in the process of closing following the HTTP request.
 
-**Screenshot 08 — pfSense HTTP State Table**
-
 ![pfSense HTTP State Table](../../images/01-stateful-firewall-segmentation/pfsense-http-state-table.png)
 
 ## Task 6 — Review Firewall Logs
@@ -288,8 +274,6 @@ In pfSense:
 
 The firewall logs confirmed that the HTTP traffic matched the intended allow rule.
 
-**Screenshot 09 — Permitted HTTP Firewall Logs**
-
 ![Permitted HTTP Firewall Logs](../../images/01-stateful-firewall-segmentation/pfsense-http-allowed-logs.png)
 
 ### 6.2 Compare Allowed and Denied Events
@@ -313,9 +297,7 @@ In pfSense:
 3. Click **Apply Changes**.
 4. Verify the original ICMP rule remains in place.
 
-**Screenshot 10 — Restored Firewall Rules**
-
-![Restored Firewall Rules](../../images/01-statefull-firewal-segmentation/pfsense-baseline-restored.png)
+![Restored Firewall Rules](../../images/01-stateful-firewall-segmentation/pfsense-baseline-restored.png)
 
 ### 7.2 Inspect Remaining Connection States
 
@@ -339,9 +321,7 @@ wget --spider -S -T 5 -t 1 http://172.16.77.10
 
 **Observed result:** Connection timed out.
 
-**Screenshot 11 — HTTP Blocked After Cleanup**
-
-![HTTP Blocked After Cleanup](../../images/01-statefull-firewal-segmentation/kali-http-blocked-after-cleanup.png)
+![HTTP Blocked After Cleanup](../../images/01-stateful-firewall-segmentation/kali-http-blocked-after-cleanup.png)
 
 The firewall baseline has been restored.
 
@@ -404,8 +384,6 @@ ip route get 192.168.50.10
 ```
 
 **Observed result:** Traffic to Kali was routed through `172.16.77.1`.
-
-**Screenshot 12 — Ubuntu Return Route Troubleshooting**
 
 ![Ubuntu Return Route Troubleshooting](../../images/01-stateful-firewall-segmentation/ubuntu-return-route-troubleshooting.png)
 
@@ -482,8 +460,6 @@ ip route get 192.168.50.10
 ```
 
 **Observed result:** The route persisted after reboot.
-
-**Screenshot 13 — Ubuntu Persistent Route Verification**
 
 ![Ubuntu Persistent Route Verification](../../images/01-stateful-firewall-segmentation/ubuntu-persistent-route-verification.png)
 
