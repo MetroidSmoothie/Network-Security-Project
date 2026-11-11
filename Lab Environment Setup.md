@@ -18,11 +18,26 @@ Deploy a four-VM, two-subnet network security lab with **no bridged or NAT conne
 
 ## Screenshot conventions
 
-Store screenshots for this guide in `images/lab-setup/`. Use lowercase, hyphenated filenames. **Only include screenshots of the final configuration or a clearly explained validation result.** Historical failed attempts and superseded NAT/bridged settings are excluded.
 
-> **Screenshot to capture — `virtualbox-final-adapters-pfsense.png`:** Capture pfSense Adapter 1 (`Lab-External`) and Adapter 2 (`PFSense Network`) in VirtualBox settings. A two-image composite is fine; make sure both say **Attached to: Internal Network**. Add it here when captured: `![pfSense VirtualBox adapters](images/lab-setup/virtualbox-final-adapters-pfsense.png)`.
->
-> **Screenshot to capture — `virtualbox-final-adapters-endpoints.png`:** Capture the final Internal Network settings for Kali, Ubuntu, and Debian. Combine into one labeled image if practical. Do not use screenshots showing NAT or Bridged Adapter. Add it here when captured: `![Endpoint VirtualBox adapters](images/lab-setup/virtualbox-final-adapters-endpoints.png)`.
+### VirtualBox Network Adapter Configuration
+
+Configure each virtual machine's network adapters under
+**Settings → Network** using the assignments defined below.
+
+**pfSense — WAN and LAN Adapters**
+
+![pfSense WAN and LAN VirtualBox adapter configuration](images/lab-setup/virtualbox-final-adapters-pfsense.png)
+
+*pfSense uses two VirtualBox Internal Network adapters: Adapter 1 connects to `Lab-External` (WAN), while Adapter 2 connects to `PFSense Network` (LAN). Both use the Intel PRO/1000 MT Desktop adapter with Promiscuous Mode set to Deny.*
+
+**Kali, Ubuntu, and Debian — Endpoint Adapters**
+
+![VirtualBox endpoint adapter configurations](images/lab-setup/virtualbox-final-adapters-endpoints.png)
+
+*Kali connects to `Lab-External`, while Ubuntu and Debian connect to `PFSense Network`. All three use Internal Network mode with Promiscuous Mode set to Deny.*
+
+> **Troubleshooting:** VirtualBox Internal Network names must match exactly for VMs to communicate on the same segment. Verify that each adapter is enabled and **Cable Connected** is checked. Do not use NAT or Bridged Adapter, as the lab is intended to remain isolated from external networks.
+
 
 ## 2. Network plan
 
