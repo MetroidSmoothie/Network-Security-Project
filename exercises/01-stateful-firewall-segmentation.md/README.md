@@ -4,6 +4,7 @@
 **Difficulty:** Beginner  
 **Estimated Completion Time:** 45–60 minutes  
 **Primary Tools:** pfSense, Kali Linux, Ubuntu Server
+**Full Task Walkthrough:** [View Exercise Walkthrough](01-walkthrough.md)
 
 ## Overview
 
@@ -83,25 +84,14 @@ Participants will complete the following tasks:
 7. **Restore the Baseline**  
    Remove the temporary firewall exception and verify that the original restrictions are enforced.
 
-## Exercise Walkthrough
-
-*Step-by-step configuration instructions will be documented after the exercise has been completed and validated.*
-
 ## Validation & Expected Results
 
 Successful completion requires demonstrating that:
 
-- The selected Ubuntu service is reachable only when the appropriate firewall exception is enabled.
-- Traffic outside the permitted source, destination, protocol, and port remains restricted.
+- The selected Ubuntu service is reachable when the appropriate firewall exception and network routing are configured.- Traffic outside the permitted source, destination, protocol, and port remains restricted.
 - pfSense maintains connection states for authorized traffic.
 - Firewall logs provide evidence of policy enforcement.
 - The original WAN-to-LAN restrictions are restored after testing.
-
-*Commands, screenshots, and observed results will be added during exercise execution.*
-
-## Troubleshooting
-
-*Common configuration issues and their resolutions will be documented as they are encountered during testing.*
 
 ## Knowledge Check
 
@@ -114,6 +104,3 @@ Successful completion requires demonstrating that:
 ## Cleanup & Reset
 
 At the conclusion of the exercise, participants should restore the original firewall configuration and confirm that the default WAN-to-LAN restrictions remain effective.
-
-*Specific cleanup and verification steps will be documented during exercise execution.*
-
