@@ -94,6 +94,9 @@ Successful completion requires demonstrating that:
 - Firewall logs provide evidence of policy enforcement.
 - The original WAN-to-LAN restrictions are restored after testing.
 
+## Troubleshooting
+- Common troubleshooting issues and resolutions are included at the end of each exercise walkthrough file.
+
 ## Knowledge Check
 
 1. What distinguishes a stateful firewall from a stateless firewall?
