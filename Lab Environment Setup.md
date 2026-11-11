@@ -14,10 +14,18 @@ Deploy a four-VM, two-subnet network security lab with **no bridged or NAT conne
 - Sufficient disk space and memory for four concurrent VMs; approximately 12 GB of host RAM available to the lab is a useful starting point, not a strict minimum.
 - Access to each guest's credentials or authorization to reset them. 
 
-**Distribution:** OVA images are not stored in this repository. Obtain them from a legitimate, authorized source. A clean installation of equivalent guest systems is an alternative, but package versions and steps may differ from this imported-appliance walkthrough.
+**Distribution:** OVA images are not stored in this repository. Fully configured snapshots are available upon request. Alternatively - obtain them from a legitimate, authorized source. A clean installation of equivalent guest systems is an alternative, but package versions and steps may differ from this imported-appliance walkthrough.
 
-## Screenshot conventions
+## 2. Import and configure the VMs
 
+For each appliance:
+
+1. In VirtualBox, select **File → Import Appliance**, choose the authorized OVA, and review its settings before importing.
+2. Generate new MAC addresses during import if offered, and use VDI disk conversion if appropriate to your VirtualBox version.
+3. Open **Settings → Network** and apply the adapter assignments in the screenshots below **before starting the VM**.
+4. Confirm no adapter uses **Bridged Adapter**, **NAT**, or **NAT Network**.
+
+> **Troubleshooting — missing or wrong adapter:** If pfSense sees only one NIC or the WAN/LAN appear reversed, shut down the VM, inspect both VirtualBox adapters, then verify pfSense interface assignments at the console. Confirm `em0` and `em1` correspond to the intended networks before continuing.
 
 ### VirtualBox Network Adapter Configuration
 
@@ -32,65 +40,11 @@ Configure each virtual machine's network adapters under
 
 **Kali, Ubuntu, and Debian — Endpoint Adapters**
 
-![VirtualBox endpoint adapter configurations](images/lab-setup/virtualbox-final-adapters-endpoints.png)
+<img src="images/lab-setup/virtualbox-final-adapters-endpoints.png" alt="Endpoint Network Adapters" width="700">
 
 *Kali connects to `Lab-External`, while Ubuntu and Debian connect to `PFSense Network`. All three use Internal Network mode with Promiscuous Mode set to Deny.*
 
 > **Troubleshooting:** VirtualBox Internal Network names must match exactly for VMs to communicate on the same segment. Verify that each adapter is enabled and **Cable Connected** is checked. Do not use NAT or Bridged Adapter, as the lab is intended to remain isolated from external networks.
-
-
-## 2. Network plan
-
-Create or assign the following exact **Internal Network** names in each VM's **Settings → Network**. VirtualBox creates an internal network when adapters use the same name.
-
-| VM | Adapter | Attached to | Internal network | Guest IPv4 |
-| --- | --- | --- | --- | --- |
-| pfSense | Adapter 1 (WAN, `em0`) | Internal Network | `Lab-External` | `192.168.50.1/24` |
-| pfSense | Adapter 2 (LAN, `em1`) | Internal Network | `PFSense Network` | `172.16.77.1/24` |
-| Kali | Adapter 1 (`eth0`) | Internal Network | `Lab-External` | `192.168.50.10/24` |
-| Ubuntu | Adapter 1 | Internal Network | `PFSense Network` | DHCP; observed `172.16.77.10/24` |
-| Debian | Adapter 1 | Internal Network | `PFSense Network` | DHCP; observed `172.16.77.11/24` |
-
-Use **Intel PRO/1000 MT Desktop** adapters where matching the imported setup, **Promiscuous Mode: Deny**, and **Cable Connected: enabled**. Disable unused adapters. The pfSense WAN has **no upstream gateway**, so this configuration does not provide internet access.
-
-> **Troubleshooting — VMs cannot communicate:** Check that each adapter is enabled, **Cable Connected** is selected, and the **Internal Network** name matches exactly (including capitalization and spaces). `Lab-External` and `PFSense Network` are distinct VirtualBox network names. Do not switch to NAT or Bridged Adapter to fix connectivity.
-
-```text
-Kali 192.168.50.10 --- Lab-External --- pfSense WAN 192.168.50.1
-                                              |
-                                         pfSense firewall
-                                              |
-                                      pfSense LAN 172.16.77.1
-                                              |
-                                        PFSense Network
-                                              |
-                            +-----------------+-----------------+
-                            |                                   |
-                     Ubuntu (DHCP)                        Debian (DHCP)
-                     172.16.77.10                         172.16.77.11
-```
-
-## 3. Import and configure the VMs
-
-For each appliance:
-
-1. In VirtualBox, select **File → Import Appliance**, choose the authorized OVA, and review its settings before importing.
-2. Generate new MAC addresses during import if offered, and use VDI disk conversion if appropriate to your VirtualBox version.
-3. Open **Settings → Network** and apply the adapter assignments in the table above **before starting the VM**.
-4. Confirm no adapter uses **Bridged Adapter**, **NAT**, or **NAT Network**.
-
-> **Troubleshooting — missing or wrong adapter:** If pfSense sees only one NIC or the WAN/LAN appear reversed, shut down the VM, inspect both VirtualBox adapters, then verify pfSense interface assignments at the console. Confirm `em0` and `em1` correspond to the intended networks before continuing.
-
-Observed baseline resource allocations (verify against your imported appliances):
-
-| VM | vCPU | RAM |
-| --- | ---: | ---: |
-| pfSense | 1 | 1,024 MB |
-| Kali | 1 | 2,048 MB |
-| Ubuntu | 1 | 2,048 MB |
-| Debian | 1 | 1,024 MB |
-
-Additional memory may be needed for later IDS exercises. Do not increase resources unless host capacity permits.
 
 ## 4. Configure pfSense
 
@@ -310,4 +264,3 @@ All images referenced by Markdown belong under `images/lab-setup/`. The optional
 **New screenshots to capture:** `virtualbox-final-adapters-pfsense.png`, `virtualbox-final-adapters-endpoints.png`, `pfsense-lan-dhcp-settings.png`, `kali-persistent-route-after-reboot.png`; optionally `pfsense-firewall-log-context.png`. Once captured and uploaded, replace the corresponding **Screenshot to capture** notes with Markdown image links. Replace `pfsense-wan-icmp-rule.png` with a fresh capture after correcting the default-password warning.
 
 Do not upload screenshots containing credentials, session tokens, sensitive host information, or unnecessary browser details. Before committing, verify that every referenced file exists at the exact case-sensitive path shown above.
-
