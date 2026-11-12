@@ -38,8 +38,8 @@ The following exercises are **planned** and will be linked as their documentatio
 
 | # | Exercise | Documentation |
 | --- | --- | --- |
-| 01 | Stateful Firewall & Segmentation | `docs/01-firewall-segmentation.md` — *Coming soon* |
-| 02 | Exposed Service Hardening | `docs/02-service-hardening.md` — *Coming soon* |
+| 01 | Stateful Firewall & Segmentation | [Exercise 1 — Stateful Firewall & Network Segmentation](exercises/01-stateful-firewall-segmentation/README.md) |
+| 02 | Exposed Service Hardening | [Exercise 2 — Exposed Service Hardening](exercises/02-exposed-service-hardening/README.md) |
 | 03 | Packet Capture & Protocol Analysis | `docs/03-packet-analysis.md` — *Coming soon* |
 | 04 | Network Reconnaissance & Firewall Testing | `docs/04-network-reconnaissance.md` — *Coming soon* |
 | 05 | Host-Based Firewall Defense | `docs/05-host-firewalls.md` — *Coming soon* |
